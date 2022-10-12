@@ -10,6 +10,9 @@ import { CatagoryData, NewProductData } from '~/datas/datas';
 const cx = classNames.bind(styles);
 
 function Home() {
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-billboard')}>

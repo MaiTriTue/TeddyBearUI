@@ -1,20 +1,35 @@
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 
 import styles from './Register.module.scss';
 import { useStore, actions } from '~/Store';
-import { InputUserName, InputPassword, InputRePassword } from '~/components/componentDetail';
+import {
+    InputLastName,
+    InputFirstName,
+    InputEmail,
+    InputUserName,
+    InputPassword,
+    InputRePassword,
+} from '~/components/componentDetail';
 
 const cx = classNames.bind(styles);
 
 function Register() {
     const [state, dispatch] = useStore();
-    const { userName, password, checkUserValid, checkPassValid, checkRePassValid } = state;
+    const { lastName, firstName, email, userName, password, checkUserValid, checkPassValid, checkRePassValid } = state;
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const HandleSubmit = (e) => {
         e.preventDefault();
 
         if (checkUserValid && checkPassValid && checkRePassValid) {
+            console.log(lastName);
+            console.log(firstName);
+            console.log(email);
             console.log(userName);
             console.log(password);
         }
@@ -29,6 +44,9 @@ function Register() {
 
                 <div className={cx('gallery-wrap')}>
                     <form onSubmit={(e) => HandleSubmit(e)}>
+                        <InputLastName />
+                        <InputFirstName />
+                        <InputEmail />
                         <InputUserName />
                         <InputPassword />
                         <InputRePassword />
@@ -36,7 +54,9 @@ function Register() {
                         <div className={cx('forgot-password')}>
                             <span>Khi bấm vào nút đăng ký, bạn đã đồng ý với</span>
                             <h5>
-                                <Link to={'/'}>Chính sách và quy định</Link>
+                                <Link to={'/'} className={cx('pass-info')}>
+                                    Chính sách và quy định
+                                </Link>
                             </h5>
                         </div>
                         <div className={cx('gallery-wrap-input')}>

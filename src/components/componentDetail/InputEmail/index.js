@@ -3,15 +3,15 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
-import styles from './InputUserName.module.scss';
+import styles from './InputEmail.module.scss';
 import { useStore, actions } from '~/Store';
 import Validator from '../CheckInput';
 
 const cx = classNames.bind(styles);
 
-function InputUserName() {
+function InputEmail() {
     const [state, dispatch] = useStore();
-    const { userName, checkUserValid } = state;
+    const { email, checkEmailValid } = state;
     const warningUserRef = useRef(null);
     const warningIconRef = useRef(null);
     const warningPassSpecialCharacterRef = useRef(null);
@@ -20,42 +20,42 @@ function InputUserName() {
     const inputRef = useRef(null);
 
     useEffect(() => {
-        if (userName.length > 0 && !Validator.CheckSpecialCharacter(userName)) {
-            dispatch(actions.setCheckUserValid(true));
+        if (email.length > 0 && !Validator.validateEmail(email)) {
+            dispatch(actions.setCheckEmailValid(true));
         } else {
-            dispatch(actions.setCheckUserValid(false));
-        }
-        if (userName.length > 0) {
-            warningUserRef.current.style.display = 'none';
-            warningIconRef.current.style.display = 'none';
-            checkIconRef.current.style.display = 'block';
+            dispatch(actions.setCheckEmailValid(false));
         }
 
-        if (Validator.CheckSpecialCharacter(userName)) {
-            checkIconRef.current.style.display = 'none';
-            warningPassSpecialCharacterRef.current.style.display = 'block';
-            warningIconRef.current.style.display = 'block';
-        } else if (!Validator.CheckSpecialCharacter(userName)) {
+        if (Validator.validateEmail(email)) {
             checkIconRef.current.style.display = 'block';
             warningPassSpecialCharacterRef.current.style.display = 'none';
             warningIconRef.current.style.display = 'none';
-        }
-        if (userName.length === 0) {
+        } else if (!Validator.validateEmail(email)) {
             checkIconRef.current.style.display = 'none';
         }
-    }, [userName]);
+
+        if (email.length === 0) {
+            checkIconRef.current.style.display = 'none';
+            warningPassSpecialCharacterRef.current.style.display = 'none';
+        }
+    }, [email]);
 
     useEffect(() => {
-        if (userName.length > 0 && !Validator.CheckSpecialCharacter(userName)) {
-            dispatch(actions.setCheckUserValid(true));
+        if (email.length > 0 && !Validator.validateEmail(email)) {
+            dispatch(actions.setCheckEmailValid(true));
         }
-    }, [checkUserValid]);
+    }, [checkEmailValid]);
 
-    const HandleUserNameBlur = () => {
-        if (userName.length === 0) {
+    const HandleEmailBlur = () => {
+        if (email.length === 0) {
             warningUserRef.current.style.display = 'block';
             warningIconRef.current.style.display = 'block';
             checkIconRef.current.style.display = 'none';
+        }
+        if (!Validator.validateEmail(email)) {
+            checkIconRef.current.style.display = 'none';
+            warningIconRef.current.style.display = 'block';
+            warningPassSpecialCharacterRef.current.style.display = 'block';
         }
     };
 
@@ -68,14 +68,14 @@ function InputUserName() {
                             <input
                                 ref={inputRef}
                                 type={'text'}
-                                className={cx('userName')}
-                                id={'userName'}
-                                value={userName}
+                                className={cx('email')}
+                                id={'email'}
+                                value={email}
                                 onChange={(event) => {
-                                    dispatch(actions.setUserNameInput(event.target.value));
+                                    dispatch(actions.setEmailInput(event.target.value));
                                 }}
-                                onBlur={(e) => HandleUserNameBlur(e)}
-                                placeholder={'Tên đăng nhập'}
+                                onBlur={(e) => HandleEmailBlur(e)}
+                                placeholder={'example@gmail.com'}
                             />
                             <div className={cx('wrap-warning-icon')} ref={warningIconRef}>
                                 <FontAwesomeIcon icon={faCircleExclamation} className={cx('warning-icon')} />
@@ -87,10 +87,10 @@ function InputUserName() {
 
                         <div className={cx('warning-input')}>
                             <span ref={warningUserRef} className={cx('warning-username-input')}>
-                                Vui lòng điền Tên đăng nhập
+                                Vui lòng điền Email của bạn
                             </span>
                             <span ref={warningPassSpecialCharacterRef} className={cx('warning-password-input')}>
-                                Tên đăng nhập không thể chứa các kí tự đặc biệt
+                                Đây có thể không phải là một Email hợp lệ
                             </span>
                         </div>
                     </div>
@@ -100,4 +100,4 @@ function InputUserName() {
     );
 }
 
-export default InputUserName;
+export default InputEmail;

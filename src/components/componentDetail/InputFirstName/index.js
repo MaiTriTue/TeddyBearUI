@@ -3,15 +3,15 @@ import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
-import styles from './InputUserName.module.scss';
+import styles from './InputFirstName.module.scss';
 import { useStore, actions } from '~/Store';
 import Validator from '../CheckInput';
 
 const cx = classNames.bind(styles);
 
-function InputUserName() {
+function InputFirstName() {
     const [state, dispatch] = useStore();
-    const { userName, checkUserValid } = state;
+    const { firstName, checkFirstNameValid } = state;
     const warningUserRef = useRef(null);
     const warningIconRef = useRef(null);
     const warningPassSpecialCharacterRef = useRef(null);
@@ -20,39 +20,39 @@ function InputUserName() {
     const inputRef = useRef(null);
 
     useEffect(() => {
-        if (userName.length > 0 && !Validator.CheckSpecialCharacter(userName)) {
-            dispatch(actions.setCheckUserValid(true));
+        if (firstName.length > 0 && !Validator.CheckSpecialCharacter(firstName)) {
+            dispatch(actions.setCheckFirstNameValid(true));
         } else {
-            dispatch(actions.setCheckUserValid(false));
+            dispatch(actions.setCheckFirstNameValid(false));
         }
-        if (userName.length > 0) {
+        if (firstName.length > 0) {
             warningUserRef.current.style.display = 'none';
             warningIconRef.current.style.display = 'none';
             checkIconRef.current.style.display = 'block';
         }
 
-        if (Validator.CheckSpecialCharacter(userName)) {
+        if (Validator.CheckSpecialCharacter(firstName)) {
             checkIconRef.current.style.display = 'none';
             warningPassSpecialCharacterRef.current.style.display = 'block';
             warningIconRef.current.style.display = 'block';
-        } else if (!Validator.CheckSpecialCharacter(userName)) {
+        } else if (!Validator.CheckSpecialCharacter(firstName)) {
             checkIconRef.current.style.display = 'block';
             warningPassSpecialCharacterRef.current.style.display = 'none';
             warningIconRef.current.style.display = 'none';
         }
-        if (userName.length === 0) {
+        if (firstName.length === 0) {
             checkIconRef.current.style.display = 'none';
         }
-    }, [userName]);
+    }, [firstName]);
 
     useEffect(() => {
-        if (userName.length > 0 && !Validator.CheckSpecialCharacter(userName)) {
-            dispatch(actions.setCheckUserValid(true));
+        if (firstName.length > 0 && !Validator.CheckSpecialCharacter(firstName)) {
+            dispatch(actions.setCheckFirstNameValid(true));
         }
-    }, [checkUserValid]);
+    }, [checkFirstNameValid]);
 
-    const HandleUserNameBlur = () => {
-        if (userName.length === 0) {
+    const HandlefirstNameBlur = () => {
+        if (firstName.length === 0) {
             warningUserRef.current.style.display = 'block';
             warningIconRef.current.style.display = 'block';
             checkIconRef.current.style.display = 'none';
@@ -68,14 +68,14 @@ function InputUserName() {
                             <input
                                 ref={inputRef}
                                 type={'text'}
-                                className={cx('userName')}
-                                id={'userName'}
-                                value={userName}
+                                className={cx('username')}
+                                id={'firstname'}
+                                value={firstName}
                                 onChange={(event) => {
-                                    dispatch(actions.setUserNameInput(event.target.value));
+                                    dispatch(actions.setFirstNameInput(event.target.value));
                                 }}
-                                onBlur={(e) => HandleUserNameBlur(e)}
-                                placeholder={'Tên đăng nhập'}
+                                onBlur={(e) => HandlefirstNameBlur(e)}
+                                placeholder={'Tên'}
                             />
                             <div className={cx('wrap-warning-icon')} ref={warningIconRef}>
                                 <FontAwesomeIcon icon={faCircleExclamation} className={cx('warning-icon')} />
@@ -86,11 +86,11 @@ function InputUserName() {
                         </div>
 
                         <div className={cx('warning-input')}>
-                            <span ref={warningUserRef} className={cx('warning-username-input')}>
-                                Vui lòng điền Tên đăng nhập
+                            <span ref={warningUserRef} className={cx('warning-firstname-input')}>
+                                Vui lòng điền Tên của bạn
                             </span>
                             <span ref={warningPassSpecialCharacterRef} className={cx('warning-password-input')}>
-                                Tên đăng nhập không thể chứa các kí tự đặc biệt
+                                Tên của bạn không thể chứa các kí tự đặc biệt
                             </span>
                         </div>
                     </div>
@@ -100,4 +100,4 @@ function InputUserName() {
     );
 }
 
-export default InputUserName;
+export default InputFirstName;

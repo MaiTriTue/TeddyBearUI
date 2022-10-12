@@ -6,46 +6,65 @@ import { Link, useParams } from 'react-router-dom';
 import styles from './Category.module.scss';
 import images from '~/assets/images';
 import Apis, { endpoints } from '~/Apis/Apis';
+import { NewProductData, CatagoryData } from '~/datas/datas';
+import { TrendingProduct, SlideCategory } from '~/components/componentDetail';
 
 const cx = classNames.bind(styles);
 
 function Category() {
-    const { movieGenre, movieCountry } = useParams();
-    const [movieDetail, setMovieDetail] = useState('');
+    const { categoryItem } = useParams();
+    const [DataProducts, setDataProducts] = useState('');
     const [movieSrc, setMovieSrc] = useState('');
+    const [CategoryTitle, setCategoryTitle] = useState('');
 
     useEffect(() => {
-        if (movieGenre && movieCountry) {
-            // console.log('movieId: ', movieId);
-            Apis.get(endpoints['top_link'] + movieGenre + '/' + movieCountry + endpoints['pageCount'])
-                .then((res) => {
-                    console.log('detail movie: ', res.data);
+        window.scrollTo(0, 0);
+    }, []);
 
-                    setMovieDetail(res.data);
-                    setMovieSrc(res.data.episodes[0].link_embed);
-                })
-                .catch(function (error) {
-                    console.log('movieGenre + movieCountry');
-                    console.log('movieGenre: ', movieGenre);
-                    console.log(error);
-                });
-        } else if (movieGenre && !movieCountry) {
-            // console.log('movieGenre: ', movieGenre);
-            Apis.get(endpoints['top_link'] + movieGenre + endpoints['pageCount'])
-                .then((res) => {
-                    console.log('detail movie: ', res.data);
-
-                    setMovieDetail(res.data);
-                    setMovieSrc(res.data.episodes[0].link_embed);
-                })
-                .catch(function (error) {
-                    console.log('chi co the loai phim');
-                    console.log('movieGenre: ', movieGenre);
-                    console.log(error);
-                });
+    useEffect(() => {
+        switch (categoryItem) {
+            case 'hoa-hong-sap':
+                setDataProducts(NewProductData);
+                setCategoryTitle('Hoa Hồng Sáp ( bó )');
+                break;
+            case 'thu-bong':
+                setDataProducts(NewProductData);
+                setCategoryTitle('Thú Bông');
+                break;
+            case 'gau-bong-hoat-hinh':
+                setDataProducts(NewProductData);
+                setCategoryTitle('Gấu Bông Hoạt Hình');
+                break;
+            case 'goi-bong-phu-kien':
+                setDataProducts(NewProductData);
+                setCategoryTitle('Gối Bông & Phụ Kiện');
+                break;
+            case 'gau-bong':
+                setDataProducts(NewProductData);
+                setCategoryTitle('Gấu Bông');
+                break;
+            case 'hop-qua':
+                setDataProducts(NewProductData);
+                setCategoryTitle('Hộp Quà Tình Yêu');
+                break;
+            default:
+                console.warn('Path does not exist !');
         }
-    }, [movieGenre]);
-    return <div className={cx('wrapper')}></div>;
+    }, [categoryItem]);
+    return (
+        <div className={cx('wrapper')}>
+            <div className={cx('wrapper-billboard')}>
+                <div className={cx('wrapper-billboard')}>
+                    <SlideCategory type="category" title="Danh mục" datas={CatagoryData} />
+                </div>
+            </div>
+            <div className={cx('wrapper-billboard')}>
+                <div className={cx('wrapper-billboard')}>
+                    <TrendingProduct type="subcategory" title={CategoryTitle} data={DataProducts} />
+                </div>
+            </div>
+        </div>
+    );
 }
 
 export default Category;

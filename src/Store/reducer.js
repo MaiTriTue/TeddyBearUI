@@ -1,4 +1,5 @@
 import cookies from 'react-cookies';
+import images from '~/assets/images';
 import {
     SET_USERNAME_INPUT,
     SET_PASSWORD_INPUT,
@@ -13,15 +14,27 @@ import {
     SET_MOVIE_DETAIL,
     SET_MENU,
     SET_CART_PRODUCT,
+    SET_LASTNAME_INPUT,
+    SET_FIRSTNAME_INPUT,
+    SET_EMAIL_INPUT,
+    SET_CHECK_lASTNAME_VALID,
+    SET_CHECK_FIRSTNAME_VALID,
+    SET_CHECK_EMAIL_VALID,
 } from './Constants';
 
 const initState = {
     userLogin: cookies.load('origin-movie-user'),
     warningLogin: false,
     userName: '',
+    lastName: '',
+    firstName: '',
+    email: '',
     password: '',
     rePassword: '',
     checkUserValid: '',
+    checkLastNameValid: '',
+    checkFirstNameValid: '',
+    checkEmailValid: '',
     checkPassValid: '',
     checkRePassValid: '',
     changeWidth: 0,
@@ -63,6 +76,22 @@ function reducer(state, action) {
                 ...state,
                 checkUserValid: action.payload,
             };
+        case SET_CHECK_lASTNAME_VALID:
+            return {
+                ...state,
+                checkLastNameValid: action.payload,
+            };
+        case SET_CHECK_FIRSTNAME_VALID:
+            return {
+                ...state,
+                checkFirstNameValid: action.payload,
+            };
+        case SET_CHECK_EMAIL_VALID:
+            return {
+                ...state,
+                checkEmailValid: action.payload,
+            };
+
         case SET_CHECK_PASS_VALID:
             return {
                 ...state,
@@ -97,6 +126,21 @@ function reducer(state, action) {
             return {
                 ...state,
                 cartProduct: action.payload,
+            };
+        case SET_LASTNAME_INPUT:
+            return {
+                ...state,
+                lastName: action.payload,
+            };
+        case SET_FIRSTNAME_INPUT:
+            return {
+                ...state,
+                firstName: action.payload,
+            };
+        case SET_EMAIL_INPUT:
+            return {
+                ...state,
+                email: action.payload,
             };
         default:
             throw new Error('Invalid action');

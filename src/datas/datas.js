@@ -6,32 +6,32 @@ const CatagoryData = [
     {
         name: 'Gấu Bông',
         icon: images.gauBong01,
-        link: '/',
+        link: '/danh-muc/gau-bong',
     },
     {
         name: 'Thú Bông',
         icon: images.thuBong01,
-        link: '/',
+        link: '/danh-muc/thu-bong',
     },
     {
         name: 'Gấu Bông Hoạt Hình',
         icon: images.gauBongHoatHinh,
-        link: '/',
+        link: '/danh-muc/gau-bong-hoat-hinh',
     },
     {
         name: 'Gối Bông & Phụ Kiện',
         icon: images.goibong,
-        link: '/',
+        link: '/danh-muc/goi-bong-phu-kien',
     },
     {
         name: 'Hoa Hồng Sáp ( bó )',
         icon: images.hongSapBo,
-        link: '/',
+        link: '/danh-muc/hoa-hong-sap',
     },
     {
         name: 'Hộp Quà',
         icon: images.hopqua,
-        link: '/',
+        link: '/danh-muc/hop-qua',
     },
 ];
 const NewProductData = [

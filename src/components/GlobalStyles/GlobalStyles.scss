@@ -19,6 +19,8 @@
     --backgroundColor4: #eef5e4;
     --backgroundColor5: #e6f3fa;
     --backgroundColor6: #f9ecde;
+    --BC-Header01: #000;
+    --BC-Header02: #fff;
     --boderColor1: #e2e2e2;
     --active: #ffc43f;
     --button-color-hover: #d95600;
@@ -56,7 +58,7 @@ button,
 }
 
 a[href] {
-    color: var(--text-color3);
+    color: var(--text-color);
     text-decoration: none;
 }
 

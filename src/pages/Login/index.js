@@ -20,6 +20,10 @@ function Login() {
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         const onScroll = () => setOffset(window.pageYOffset);
         // clean up code
         window.removeEventListener('scroll', onScroll);
@@ -122,13 +126,17 @@ function Login() {
                     <div className={cx('forgot-password')}>
                         <span className={cx('quest')}>Chưa có tài khoản?</span>
                         <span>
-                            <Link to={'/dang-ky'}>Đăng ký ngay</Link>
+                            <Link to={'/dang-ky'} className={cx('handle')}>
+                                Đăng ký ngay
+                            </Link>
                         </span>
                     </div>
 
                     <div className={cx('forgot-password')}>
                         <span>
-                            <Link to={'/'}>Chính sách và quy định</Link>
+                            <Link to={'/'} className={cx('handle')}>
+                                Chính sách và quy định
+                            </Link>
                         </span>
                     </div>
                 </div>

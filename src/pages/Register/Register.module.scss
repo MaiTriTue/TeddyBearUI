@@ -34,7 +34,7 @@
     align-items: center;
     margin-bottom: 8px;
     h3 {
-        color: var(--white);
+        color: var(--text-color);
         font-size: 2.5rem;
         font-weight: 500;
 
@@ -144,10 +144,11 @@
         margin-bottom: 8px;
     }
 
-    a {
+    .pass-info {
         cursor: pointer;
         font-size: 1.4rem;
         font-weight: 300;
+        color: var(--white);
     }
 
     a:hover {

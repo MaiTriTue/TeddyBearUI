@@ -12,10 +12,28 @@ import {
     SET_CHOOSE_MOVIE_ID,
     SET_MOVIE_DETAIL,
     SET_CART_PRODUCT,
+    SET_LASTNAME_INPUT,
+    SET_FIRSTNAME_INPUT,
+    SET_EMAIL_INPUT,
+    SET_CHECK_lASTNAME_VALID,
+    SET_CHECK_FIRSTNAME_VALID,
+    SET_CHECK_EMAIL_VALID,
 } from './Constants';
 
 export const setUserNameInput = (payload) => ({
     type: SET_USERNAME_INPUT,
+    payload,
+});
+export const setLastNameInput = (payload) => ({
+    type: SET_LASTNAME_INPUT,
+    payload,
+});
+export const setFirstNameInput = (payload) => ({
+    type: SET_FIRSTNAME_INPUT,
+    payload,
+});
+export const setEmailInput = (payload) => ({
+    type: SET_EMAIL_INPUT,
     payload,
 });
 export const setPasswordInput = (payload) => ({
@@ -30,6 +48,19 @@ export const setCheckUserValid = (payload) => ({
     type: SET_CHECK_USER_VALID,
     payload,
 });
+export const setCheckLastNameValid = (payload) => ({
+    type: SET_CHECK_lASTNAME_VALID,
+    payload,
+});
+export const setCheckFirstNameValid = (payload) => ({
+    type: SET_CHECK_FIRSTNAME_VALID,
+    payload,
+});
+export const setCheckEmailValid = (payload) => ({
+    type: SET_CHECK_EMAIL_VALID,
+    payload,
+});
+
 export const setCheckPassValid = (payload) => ({
     type: SET_CHECK_PASS_VALID,
     payload,

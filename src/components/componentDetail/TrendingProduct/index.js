@@ -33,9 +33,16 @@ function TrendingProduct(props) {
                                         </div>
                                     );
                                 }
-                            }
-                            if (type === 'BestSellingProduct') {
+                            } else if (type === 'BestSellingProduct') {
                                 if (index < 12) {
+                                    return (
+                                        <div className={cx('product-cart')} key={index}>
+                                            <ProductCart data={item} />
+                                        </div>
+                                    );
+                                }
+                            } else {
+                                if (index < 24) {
                                     return (
                                         <div className={cx('product-cart')} key={index}>
                                             <ProductCart data={item} />

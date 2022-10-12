@@ -8,6 +8,7 @@ import images from '~/assets/images';
 import Apis, { endpoints } from '~/Apis/Apis';
 import { useStore, actions } from '~/Store';
 import { NewProductData } from '~/datas/datas';
+import CartPageProduct from './CartPageProduct';
 
 const cx = classNames.bind(styles);
 
@@ -15,18 +16,73 @@ function CartPage() {
     const [state, dispatch] = useStore();
     const { cartProduct } = state;
     const [countProduct, setCountProduct] = useState(1);
+    const [CartProduct, setCartProduct] = useState('');
     const [discount, setDiscount] = useState(0);
     const [priceTotal, setPriceTotal] = useState(0);
+    let dataLocalStorage = JSON.parse(localStorage.getItem('cartProduct'))
+        ? JSON.parse(localStorage.getItem('cartProduct'))
+        : '';
 
-    const handleMinusCount = () => {
-        if (countProduct === 0) {
-            setCountProduct(0);
+    useEffect(() => {
+        let products = [];
+        if (dataLocalStorage) {
+            console.log(dataLocalStorage);
+            products.push(...dataLocalStorage);
         } else {
-            setCountProduct(countProduct - 1);
+            products.push(...cartProduct);
+            localStorage.setItem('cartProduct', JSON.stringify(products));
+        }
+        if (products.length != 0) {
+            setCartProduct(products);
+        }
+    }, []);
+
+    const handleMinusCount = (indexPro) => {
+        let items = CartProduct;
+        if (items[indexPro].count > 0) {
+            items[indexPro].count = items[indexPro].count - 1;
+            dispatch(actions.setCartProduct(items));
+            localStorage.setItem('cartProduct', JSON.stringify(items));
+            setCartProduct(items);
         }
     };
-    const handleAddCount = () => {
-        setCountProduct(countProduct + 1);
+    const handleAddCount = (indexPro) => {
+        let items = CartProduct;
+
+        items[indexPro].count = items[indexPro].count + 1;
+        dispatch(actions.setCartProduct(items));
+        localStorage.setItem('cartProduct', JSON.stringify(items));
+        setCartProduct(items);
+    };
+
+    const HandleChangeInput = (event, indexPro) => {
+        let items = CartProduct;
+
+        items[indexPro].count = parseInt(event.target.value, 10);
+        dispatch(actions.setCartProduct(items));
+        localStorage.setItem('cartProduct', JSON.stringify(items));
+        setCartProduct(items);
+    };
+
+    const HandleDataCart = (index) => {
+        dataLocalStorage = JSON.parse(localStorage.getItem('cartProduct'));
+        setCartProduct(JSON.parse(localStorage.getItem('cartProduct')));
+        if (dataLocalStorage.length == 0) {
+            localStorage.removeItem('cartProduct');
+        }
+    };
+    const HandleDeleteProduct = (indexDel) => {
+        let items = cartProduct;
+        let itemLength = items.length;
+        // console.log('000000000000000000000000000: ', indexDel);
+        items.forEach((item, index) => {
+            if (index === indexDel) {
+                items.splice(index, 1);
+            }
+        });
+        dispatch(actions.setCartProduct(items));
+        localStorage.setItem('cartProduct', JSON.stringify(items));
+        HandleDataCart();
     };
 
     return (
@@ -39,40 +95,29 @@ function CartPage() {
                     </span>
                 </div>
                 <div className={cx('wrapper-cart_detail')}>
-                    <div className={cx('wrapper-cart_products')}>
-                        <div className={cx('cart_product')}>
-                            <div className={cx('cart_product-serial')}>1</div>
-                            <div className={cx('cart_product-img')}>
-                                <img src={NewProductData[0].icon} alt={NewProductData[0].name} />
+                    <ul className={cx('wrapper-cart_products')}>
+                        {CartProduct ? (
+                            CartProduct &&
+                            CartProduct.map((item, index) => {
+                                return (
+                                    <li key={index}>
+                                        <CartPageProduct
+                                            cartProductItem={item}
+                                            cartProductIndex={index}
+                                            handleAddCount={handleAddCount}
+                                            handleMinusCount={handleMinusCount}
+                                            HandleChangeInput={HandleChangeInput}
+                                            HandleDeleteProduct={HandleDeleteProduct}
+                                        />
+                                    </li>
+                                );
+                            })
+                        ) : (
+                            <div className={cx('no-product')}>
+                                <p>Chưa có sản phẩm nào trong giỏ hàng của bạn ! </p>
                             </div>
-                            <div className={cx('cart_product-info')}>
-                                <div className={cx('cart_product-info-name')}>
-                                    <h4>{NewProductData[0].name}</h4>
-                                </div>
-                                <div className={cx('cart_product-info-count')}>
-                                    <div className={cx('product_count-product')}>
-                                        <div className={cx('btn_minus')} onClick={handleMinusCount}>
-                                            -
-                                        </div>
-                                        <span className={cx('product_btn-input')}>{countProduct}</span>
-                                        <span className={cx('btn_add')} onClick={handleAddCount}>
-                                            +
-                                        </span>
-                                    </div>
-                                </div>
-                                <div className={cx('cart_product-info-price')}>
-                                    <span>
-                                        {isNaN(NewProductData[0].price)
-                                            ? 'LIÊN HỆ'
-                                            : NewProductData[0].price * countProduct + ' VND'}
-                                    </span>
-                                </div>
-                            </div>
-                            <div className={cx('cart_product-delete')}>
-                                <button className={cx('product-delete_btn')}>Xóa</button>
-                            </div>
-                        </div>
-                    </div>
+                        )}
+                    </ul>
                     <div className={cx('wrapper-cart_infos')}>
                         <div className={cx('wrapper-cart_info-header')}>
                             <h5 className={cx('wrapper-cart_info-title')}>Chi tiết thanh toán</h5>

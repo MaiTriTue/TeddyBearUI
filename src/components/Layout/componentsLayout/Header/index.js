@@ -18,32 +18,25 @@ import logo from '../../../../logo.svg';
 const cx = classNames.bind(styles);
 
 const menus = [
-    { url: '', content: 'Trang chủ' },
-    { url: 'truyen-hinh', content: 'Truyền hình' },
-    { url: 'hbo-go', content: 'HBO GO', menuLogo: images.logoMenuHbo },
-    { url: 'danh-sach', content: 'Phim bộ' },
-    { url: 'danh-sach', content: 'TV show' },
-    { url: 'danh-sach', content: 'Anime' },
-    { url: 'danh-sach', content: 'Phim lẻ' },
-    { url: 'danh-sach', content: 'Phim chiếu rạp' },
-    { url: 'danh-sach', content: 'Thể thao' },
-    { url: 'danh-sach', content: 'Âm nhạc' },
-    { url: 'danh-sach', content: 'Gói đặc sắc' },
-    { url: 'danh-sach', content: 'Thiếu nhi' },
-    { url: 'danh-sach', content: 'Hài' },
-    { url: 'danh-sach', content: 'Học online' },
+    { url: '/', content: 'Trang chủ' },
+    { url: '/', content: 'Cửa hàng' },
+    { url: '/', content: 'Page' },
+    { url: '/', content: 'Dịch vụ' },
+    { url: '/', content: 'Blog' },
+    { url: '/', content: 'Liên hệ' },
+    { url: '/', content: 'Ưu đãi' },
 ];
 
 function Header() {
-    // const [active, setActive] = useState(0);
+    const [active, setActive] = useState(0);
     // // const [screenWidth, setScreenWidth] = useState(0);
     // const [numberMenu, setNumberMenu] = useState(9);
-    // const [indexMenu, setIndexMenu] = useState(0);
-    // const navigate = useNavigate();
+    const [indexMenu, setIndexMenu] = useState(0);
+    const navigate = useNavigate();
     // const mobileMenuRef = useRef(null);
-    // const [state, dispatch] = useStore();
-    // const { userLogin } = state;
-    // let activeMenu;
+    const [state, dispatch] = useStore();
+    const { cartProduct } = state;
+    let activeMenu;
     // let laptopWidth = 1280;
     // let tabletWidth = 1024;
     // let mobileWidth = 768;
@@ -116,9 +109,13 @@ function Header() {
     //     }
     // }, [indexMenu]);
 
-    // const HandleActive = (index) => {
-    //     setIndexMenu(index);
-    // };
+    const HandleActive = (index) => {
+        setIndexMenu(index);
+    };
+    const HandleLogin = () => {
+        setIndexMenu(-1);
+        navigate('/dang-nhap');
+    };
     // const HandleChangeIndex = (index) => {
     //     setIndexMenu(index);
     // };
@@ -170,18 +167,22 @@ function Header() {
                             <p>0969024369</p>
                         </div>
                         <div className={cx('wrapper-header_user-interactive')}>
-                            <div className={cx('wrapper-header_login')}>
+                            <div className={cx('wrapper-header_login')} onClick={HandleLogin}>
                                 <img src={userIcon} alt="user-icon" />
                             </div>
-                            <div className={cx('wrapper-header_wishlists')}>
+                            <div className={cx('wrapper-header_wishlists')} onClick={() => HandleActive(-1)}>
                                 <img src={wishlists} alt="wishlists" />
                                 <span>22</span>
                             </div>
                             <div className={cx('wrapper-header_cart')}>
-                                <div className={cx('wrapper-header_cart-icon')}>
+                                <Link
+                                    to={'/gio-hang'}
+                                    className={cx('wrapper-header_cart-icon')}
+                                    onClick={() => HandleActive(-1)}
+                                >
                                     <img src={cartIcon} alt="cartIcon" />
-                                    <span>22</span>
-                                </div>
+                                    <span>{cartProduct.length}</span>
+                                </Link>
                                 <div className={cx('wrapper-header_cart-price')}>
                                     <p>your cart</p>
                                     <p>
@@ -199,13 +200,15 @@ function Header() {
                             <option>shop by departments</option>
                         </select>
                         <ul className={cx('wrapper-navbar_nav-list')}>
-                            <li className={cx('active')}>Home</li>
-                            <li>Shop</li>
-                            <li>Page</li>
-                            <li>Services</li>
-                            <li>Blog</li>
-                            <li>Contact</li>
-                            <li>Ofers</li>
+                            {menus &&
+                                menus.map((item, index) => {
+                                    activeMenu = indexMenu === index ? 'active' : '';
+                                    return (
+                                        <li className={cx(activeMenu)} onClick={() => HandleActive(index)} key={index}>
+                                            <Link to={item.url}>{item.content}</Link>
+                                        </li>
+                                    );
+                                })}
                         </ul>
                     </div>
                     <div className={cx('wrapper-navbar_coupon-code')}>

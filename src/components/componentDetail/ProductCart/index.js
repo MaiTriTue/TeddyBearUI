@@ -15,9 +15,15 @@ const cx = classNames.bind(styles);
 
 function ProductCart(props) {
     const { data } = props;
+    const [state, dispatch] = useStore();
+    const { cartProduct } = state;
     const [countProduct, setCountProduct] = useState(1);
     const [loveProduct, setLoveProduct] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        localStorage.setItem('cartProduct', JSON.stringify(cartProduct));
+    }, [cartProduct]);
 
     const handleMinusCount = () => {
         if (countProduct === 0) {
@@ -29,7 +35,17 @@ function ProductCart(props) {
     const handleAddCount = () => {
         setCountProduct(countProduct + 1);
     };
-    const handleAddCart = () => {
+    const handleAddCart = (data) => {
+        dispatch(
+            actions.setCartProduct([
+                ...cartProduct,
+                {
+                    ...data,
+                    count: countProduct,
+                },
+            ]),
+        );
+
         alert('Đã thêm sản phẩm vào giỏ hàng thành công !');
     };
     const handleLoveProduct = () => {
@@ -71,7 +87,7 @@ function ProductCart(props) {
                             +
                         </span>
                     </div>
-                    <button className={cx('btn_add-cart')} onClick={handleAddCart}>
+                    <button className={cx('btn_add-cart')} onClick={() => handleAddCart(data)}>
                         Thêm giỏ hàng
                     </button>
                 </div>
