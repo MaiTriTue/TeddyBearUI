@@ -56,7 +56,7 @@ function ProductCart(props) {
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-product')}>
                 <div className={cx('product_img')}>
-                    <img src={data.icon} alt="gau bong" className={cx('product_img-detail')} />
+                    <img src={data.image} alt="gau bong" className={cx('product_img-detail')} />
                     <div className={cx('product_heart')} onClick={handleLoveProduct}>
                         {loveProduct === true ? (
                             <img src={heartSolid} alt="12345" className={cx('product_heart-icon')} />
@@ -73,9 +73,9 @@ function ProductCart(props) {
                         <FontAwesomeIcon icon={faStar} className={cx('product_info-rating-star')} />
                         <FontAwesomeIcon icon={faStar} className={cx('product_info-rating-star')} />
                         <FontAwesomeIcon icon={faStar} className={cx('product_info-rating-star')} />
-                        <span className={cx('product_info-rating-number')}>{data.rating}</span>
+                        <span className={cx('product_info-rating-number')}>Đã bán: {data.amount_sold}</span>
                     </span>
-                    <span className={cx('product_info-price')}>VND: {data.price} </span>
+                    <span className={cx('product_info-price')}>{'VND: ' + data.price}</span>
                 </div>
                 <div className={cx('product_btn')}>
                     <div className={cx('product_count-product')}>

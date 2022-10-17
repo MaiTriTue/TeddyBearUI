@@ -21,12 +21,12 @@ const CatagoryData = [
     {
         name: 'Gối Bông & Phụ Kiện',
         icon: images.goibong,
-        link: '/danh-muc/goi-bong-phu-kien',
+        link: '/danh-muc/goi-bong',
     },
     {
         name: 'Hoa Hồng Sáp ( bó )',
         icon: images.hongSapBo,
-        link: '/danh-muc/hoa-hong-sap',
+        link: '/danh-muc/hoa',
     },
     {
         name: 'Hộp Quà',

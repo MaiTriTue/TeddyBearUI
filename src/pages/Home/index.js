@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './Home.module.scss';
@@ -10,9 +9,34 @@ import { CatagoryData, NewProductData } from '~/datas/datas';
 const cx = classNames.bind(styles);
 
 function Home() {
+    const [newProduct, setNewProduct] = useState('');
+    const [teddyBearHotData, setTeddyBearHotData] = useState('');
+    const [bouquetHotData, setBouquetHotData] = useState('');
+    const [giftBoxHotData, setGiftBoxHotData] = useState('');
+    const count = useState(1);
+    console.log('test ----------------');
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+    useEffect(() => {
+        Apis.get(endpoints['newProduct']).then((res) => {
+            console.log(res.data.results);
+            setNewProduct(res.data.results);
+        });
+        Apis.get(endpoints['teddyBearHot']).then((res) => {
+            console.log(res.data.results);
+            setTeddyBearHotData(res.data.results);
+        });
+        Apis.get(endpoints['bouquetHot']).then((res) => {
+            console.log(res.data.results);
+            setBouquetHotData(res.data.results);
+        });
+        Apis.get(endpoints['giftBox']).then((res) => {
+            console.log(res.data.results);
+            setGiftBoxHotData(res.data.results);
+        });
+    }, []);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-billboard')}>
@@ -36,22 +60,28 @@ function Home() {
             </div>
             <div className={cx('wrapper-billboard')}>
                 <div className={cx('wrapper-billboard')}>
-                    <SlideCategory type="NewProduct" title="Sản phẩm mới" datas={NewProductData} />
+                    {newProduct && <SlideCategory type="NewProduct" title="Sản phẩm mới" datas={newProduct} />}
                 </div>
             </div>
             <div className={cx('wrapper-billboard')}>
                 <div className={cx('wrapper-billboard')}>
-                    <TrendingProduct type="TrendingProduct" title="Gấu Bông Hot Nhất" data={NewProductData} />
+                    {teddyBearHotData && (
+                        <TrendingProduct type="TrendingProduct" title="Gấu Bông Hot Nhất" data={teddyBearHotData} />
+                    )}
                 </div>
             </div>
             <div className={cx('wrapper-billboard')}>
                 <div className={cx('wrapper-billboard')}>
-                    <TrendingProduct type="BestSellingProduct" title="Hộp Quà Hot Nhất" data={NewProductData} />
+                    {giftBoxHotData && (
+                        <TrendingProduct type="BestSellingProduct" title="Hộp Quà Hot Nhất" data={giftBoxHotData} />
+                    )}
                 </div>
             </div>
             <div className={cx('wrapper-billboard')}>
                 <div className={cx('wrapper-billboard')}>
-                    <TrendingProduct type="BestSellingProduct" title="Hoa Hot Nhất" data={NewProductData} />
+                    {bouquetHotData && (
+                        <TrendingProduct type="BestSellingProduct" title="Hoa Hot Nhất" data={bouquetHotData} />
+                    )}
                 </div>
             </div>
             <div className={cx('wrapper-billboard')}>

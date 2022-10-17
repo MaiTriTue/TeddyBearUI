@@ -27,7 +27,7 @@ function CartPageProduct(props) {
         <div className={cx('cart_product')}>
             <div className={cx('cart_product-serial')}>{cartProductIndex + 1}</div>
             <div className={cx('cart_product-img')}>
-                <img src={cartProduct[cartProductIndex].icon} alt={cartProduct[cartProductIndex].name} />
+                <img src={cartProduct[cartProductIndex].image} alt={cartProduct[cartProductIndex].name} />
             </div>
             <div className={cx('cart_product-info')}>
                 <div className={cx('cart_product-info-name')}>

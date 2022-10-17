@@ -19,7 +19,7 @@ function NewProduct(props) {
         <div className={cx('wrapper-new-product')}>
             <div className={cx('wrapper-cart-new-product')}>
                 <div className={cx('cart-icon-new-product')}>
-                    <img src={data.icon} alt="bo hong" />
+                    <img src={data.image} alt={data.name} />
                 </div>
                 <div className={cx('cart-info-new-product')}>
                     <h3 className={cx('cart-name-new-product')}>{data.name}</h3>

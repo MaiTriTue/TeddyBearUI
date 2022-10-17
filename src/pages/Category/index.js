@@ -22,29 +22,26 @@ function Category() {
     }, []);
 
     useEffect(() => {
+        Apis.get('/' + categoryItem + '/').then((res) => {
+            setDataProducts(res.data.results);
+        });
         switch (categoryItem) {
-            case 'hoa-hong-sap':
-                setDataProducts(NewProductData);
+            case 'hoa':
                 setCategoryTitle('Hoa Hồng Sáp ( bó )');
                 break;
             case 'thu-bong':
-                setDataProducts(NewProductData);
                 setCategoryTitle('Thú Bông');
                 break;
             case 'gau-bong-hoat-hinh':
-                setDataProducts(NewProductData);
                 setCategoryTitle('Gấu Bông Hoạt Hình');
                 break;
-            case 'goi-bong-phu-kien':
-                setDataProducts(NewProductData);
+            case 'goi-bong':
                 setCategoryTitle('Gối Bông & Phụ Kiện');
                 break;
             case 'gau-bong':
-                setDataProducts(NewProductData);
                 setCategoryTitle('Gấu Bông');
                 break;
             case 'hop-qua':
-                setDataProducts(NewProductData);
                 setCategoryTitle('Hộp Quà Tình Yêu');
                 break;
             default:
@@ -60,7 +57,7 @@ function Category() {
             </div>
             <div className={cx('wrapper-billboard')}>
                 <div className={cx('wrapper-billboard')}>
-                    <TrendingProduct type="subcategory" title={CategoryTitle} data={DataProducts} />
+                    {DataProducts && <TrendingProduct type="subcategory" title={CategoryTitle} data={DataProducts} />}
                 </div>
             </div>
         </div>

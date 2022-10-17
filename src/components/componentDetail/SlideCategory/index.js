@@ -23,7 +23,7 @@ function SlideCategory(props) {
             <div className={cx('gallery-display-area')}>
                 <div className={cx('gallery-display-area_slide')}>
                     <div className={cx('gallery-display-area_slide-name')}>
-                        <h2>{title}</h2>
+                        <h2>{datas.length !== 0 ? title : ''}</h2>
                         <div className={cx('slyde-name_interactive')}>
                             <span className={cx('slyde-name_interactive-view-all')}>
                                 Xem thêm

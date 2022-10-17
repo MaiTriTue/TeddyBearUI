@@ -20,7 +20,10 @@ function TrendingProduct(props) {
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-trending-product')}>
                 <div className={cx('trending-product_header')}>
-                    <h2 className={cx('trending-product_header-title')}>{title}</h2>
+                    <h2 className={cx('trending-product_header-title')}>
+                        {data.length !== 0 ? title : ''}
+                        {/* {title} */}
+                    </h2>
                 </div>
                 <div className={cx('trending-product_body')}>
                     {data &&
