@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 export let endpoints = {
-    login: '/account/login/',
+    login: '/user/login/',
+    register: '/user/register/',
     get_token: '/o/token/',
 
     pageCount: '/?page=',

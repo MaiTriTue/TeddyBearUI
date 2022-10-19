@@ -12,26 +12,94 @@ import {
     InputPassword,
     InputRePassword,
 } from '~/components/componentDetail';
+import Apis, { endpoints } from '~/Apis/Apis';
 
 const cx = classNames.bind(styles);
 
 function Register() {
     const [state, dispatch] = useStore();
-    const { lastName, firstName, email, userName, password, checkUserValid, checkPassValid, checkRePassValid } = state;
+    const {
+        checkFirstNameValid,
+        checkLastNameValid,
+        checkEmailValid,
+        lastName,
+        firstName,
+        email,
+        userName,
+        password,
+        checkUserValid,
+        checkPassValid,
+        checkRePassValid,
+    } = state;
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
 
-    const HandleSubmit = (e) => {
+    const HandleSubmit = async (e) => {
         e.preventDefault();
+        console.log('submit');
+        console.log('checkUserValid: ', checkUserValid);
+        console.log('checkPassValid: ', checkPassValid);
+        console.log('checkRePassValid: ', checkRePassValid);
+        console.log('checkEmailValid: ', checkEmailValid);
+        console.log('checkLastNameValid: ', checkLastNameValid);
+        console.log('checkFirstNameValid: ', checkFirstNameValid);
 
-        if (checkUserValid && checkPassValid && checkRePassValid) {
-            console.log(lastName);
-            console.log(firstName);
-            console.log(email);
-            console.log(userName);
-            console.log(password);
+        if (
+            checkUserValid &&
+            checkPassValid &&
+            checkRePassValid &&
+            !checkEmailValid &&
+            checkLastNameValid &&
+            checkFirstNameValid
+        ) {
+            const bodyFormData = {
+                username: userName,
+                password: password,
+                last_name: lastName,
+                first_name: firstName,
+                email: email,
+            };
+
+            await Apis.post(endpoints['register'], bodyFormData)
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+
+            // await Apis.post(endpoints['register'], JSON.stringify(bodyFormData), {
+            //     headers: {
+            //         // Accept: 'application/json',
+            //         'Content-Type': 'multipart/form-data; boundary=<calculated when request is sent>',
+            //     },
+            // })
+            //     .then((res) => {
+            //         console.log(res);
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
+            // await Apis.post(endpoints['register'], {
+            //     username: userName,
+            //     password: password,
+            //     last_name: lastName,
+            //     first_name: firstName,
+            //     email: email,
+            // })
+            //     .then((res) => {
+            //         console.log(res);
+            //     })
+            //     .catch(function (error) {
+            //         console.log(error);
+            //     });
+            // console.log(lastName);
+            // console.log(firstName);
+            // console.log(email);
+            // console.log(userName);
+            // console.log(password);
         }
     };
 
