@@ -30,6 +30,7 @@ const images = {
     thuBong01: require('~/assets/images/thubong-01.jpg'),
     thuBongNho: require('~/assets/images/thubong-nho.jpg'),
     heoDeoTimNgoi: require('~/assets/images/heo-deo-tim-ngoi.jpg'),
+    dongGia50k: require('~/assets/images/dong-gia-50k.jpg'),
 };
 
 export default images;

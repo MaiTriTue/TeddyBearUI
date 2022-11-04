@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
-import Tippy from '@tippyjs/react/headless';
+
 import { useState } from 'react';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars } from '@fortawesome/free-solid-svg-icons';
 
 import { Link, useNavigate } from 'react-router-dom';
 import styles from './Header.module.scss';
 import images from '~/assets/images';
-import { Vector, searchIcon, cartIcon, couponCode, userIcon, wishlists } from '~/assets/iconVector';
+import { searchIcon, cartIcon, couponCode, userIcon, wishlists } from '~/assets/iconVector';
 import { useStore, actions } from '~/Store';
-import NabbarList from './NavbarList';
+
 import MobileHeader from './MobileHeader';
 import { useRef } from 'react';
-import logo from '../../../../logo.svg';
 
 const cx = classNames.bind(styles);
 
@@ -28,86 +27,34 @@ const menus = [
 ];
 
 function Header() {
-    const [active, setActive] = useState(0);
-    // // const [screenWidth, setScreenWidth] = useState(0);
-    // const [numberMenu, setNumberMenu] = useState(9);
     const [indexMenu, setIndexMenu] = useState(0);
     const navigate = useNavigate();
-    // const mobileMenuRef = useRef(null);
+    const mobileMenuRef = useRef(null);
+    const mobileHeaderRef = useRef(null);
     const [state, dispatch] = useStore();
-    const { cartProduct } = state;
+    const { cartProduct, userLogin } = state;
+    const [offset, setOffset] = useState(0);
+    const [offsetOdd, setOffsetOdd] = useState(0);
     let activeMenu;
-    // let laptopWidth = 1280;
-    // let tabletWidth = 1024;
-    // let mobileWidth = 768;
 
-    // useEffect(() => {
-    //     dispatch(actions.setMenu(menus));
-    // }, [menus]);
+    useEffect(() => {
+        const onScroll = () => setOffset(window.pageYOffset);
+        // clean up code
+        window.removeEventListener('scroll', onScroll);
+        window.addEventListener('scroll', onScroll, { passive: true });
+        return () => window.removeEventListener('scroll', onScroll);
+    }, []);
 
-    // useEffect(() => {
-    //     if (active === 0) {
-    //         navigate('/');
-    //     }
-    // }, [active]);
-
-    // useEffect(() => {
-    //     const resizeWindow = (event) => {
-    //         if (window.innerWidth < mobileWidth) {
-    //             //
-    //         } else if (window.innerWidth < tabletWidth && window.innerWidth > mobileWidth) {
-    //             setNumberMenu(7);
-    //         } else if (
-    //             window.innerWidth < laptopWidth &&
-    //             window.innerWidth > tabletWidth &&
-    //             window.innerWidth > mobileWidth
-    //         ) {
-    //             setNumberMenu(8);
-    //         } else {
-    //             setNumberMenu(9);
-    //         }
-    //     };
-    //     window.addEventListener('resize', resizeWindow);
-
-    //     return () => {
-    //         window.removeEventListener('resize', resizeWindow);
-    //     };
-    // }, []);
-
-    // useEffect(() => {
-    //     if (window.innerWidth < mobileWidth) {
-    //         //
-    //     } else if (window.innerWidth < tabletWidth && window.innerWidth > mobileWidth) {
-    //         setNumberMenu(7);
-    //     } else if (
-    //         window.innerWidth < laptopWidth &&
-    //         window.innerWidth > tabletWidth &&
-    //         window.innerWidth > mobileWidth
-    //     ) {
-    //         setNumberMenu(8);
-    //     } else {
-    //         setNumberMenu(9);
-    //     }
-    // }, [window.innerWidth]);
-
-    // useEffect(() => {
-    //     if (indexMenu > numberMenu) {
-    //         let value;
-    //         for (let i = 0; i < menus.length; i++) {
-    //             for (let j = 0; j < menus.length; j++) {
-    //                 if (i === numberMenu && j === indexMenu) {
-    //                     value = menus[i];
-    //                     menus[i] = menus[j];
-    //                     menus[j] = value;
-    //                 }
-    //             }
-    //         }
-    //         dispatch(actions.setMenu(menus));
-    //         setActive(numberMenu);
-    //     } else {
-    //         setActive(indexMenu);
-    //     }
-    // }, [indexMenu]);
+    useEffect(() => {
+        if (window.innerWidth < 779) {
+            if (offset > offsetOdd) {
+                mobileHeaderRef.current.style.display = 'none';
+            } else if (offset < offsetOdd) {
+                mobileHeaderRef.current.style.display = 'block';
+            }
+            setOffsetOdd(offset);
+        }
+    }, [offset]);
 
     const HandleActive = (index) => {
         setIndexMenu(index);
@@ -116,22 +63,16 @@ function Header() {
         setIndexMenu(-1);
         navigate('/dang-nhap');
     };
-    // const HandleChangeIndex = (index) => {
-    //     setIndexMenu(index);
-    // };
 
-    // const handleClickMobileMenu = () => {
-    //     mobileMenuRef.current.style.display = 'block';
-    // };
-    // const handleClickMobileModelNavbar = () => {
-    //     mobileMenuRef.current.style.display = 'none';
-    // };
-    // const handleClickMobileNavbarItem = () => {
-    //     mobileMenuRef.current.style.display = 'none';
-    //     // navigate(urlItem);
-    // };
+    const HandleHideModel = () => {
+        mobileMenuRef.current.style.display = 'none';
+    };
+    const HandleMobileMenu = () => {
+        mobileMenuRef.current.style.display = 'block';
+    };
+
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper')} ref={mobileHeaderRef}>
             <div className={cx('gallery-display-area')}>
                 <div className={cx('wrapper-header')}>
                     <div className={cx('wrapper-header_logo-search')}>
@@ -139,13 +80,6 @@ function Header() {
                             <div className={cx('wrapper-header_logo-img')}>
                                 <img src={images.logoPrimary} alt="logo-shop" />
                             </div>
-                            {/* <div className={cx('wrapper-header_logo-name')}>
-                                <div className={cx('wrapper-header_logo-name-title')}>
-                                    <p>GAUBONG</p>
-                                    <p>XINH</p>
-                                </div>
-                                <p className={cx('wrapper-header_logo-name-slogan')}>TEDDY BEAR STORE</p>
-                            </div> */}
                         </div>
                         <div className={cx('wrapper-header_search')}>
                             <div className={cx('wrapper-header_search-selecte')}>
@@ -167,9 +101,26 @@ function Header() {
                             <p>0969024369</p>
                         </div>
                         <div className={cx('wrapper-header_user-interactive')}>
-                            <div className={cx('wrapper-header_login')} onClick={HandleLogin}>
-                                <img src={userIcon} alt="user-icon" />
-                            </div>
+                            {userLogin ? (
+                                userLogin['avatar'] ? (
+                                    <img
+                                        src={userLogin['avatar']}
+                                        alt="user-icon"
+                                        className={cx('header_login-image')}
+                                    />
+                                ) : (
+                                    <img
+                                        src={images.iconDefaultUse}
+                                        alt="user-icon"
+                                        className={cx('header_login-image')}
+                                    />
+                                )
+                            ) : (
+                                <div className={cx('wrapper-header_login')} onClick={HandleLogin}>
+                                    <img src={userIcon} alt="user-icon" />
+                                </div>
+                            )}
+
                             <div className={cx('wrapper-header_wishlists')} onClick={() => HandleActive(-1)}>
                                 <img src={wishlists} alt="wishlists" />
                                 <span>22</span>
@@ -192,8 +143,31 @@ function Header() {
                             </div>
                         </div>
                     </div>
+                    <div className={cx('wrapper-mobile_header')}>
+                        <div className={cx('wrapper-mobile_header-nemu')} onClick={() => HandleMobileMenu()}>
+                            <FontAwesomeIcon icon={faBars} />
+                        </div>
+                        <div className={cx('wrapper-header_logo-img')}>
+                            <img src={images.logoPrimary} alt="logo-shop" />
+                        </div>
+                        <div className={cx('wrapper-mobile_header-cart')}>
+                            <div className={cx('wrapper-header_cart')}>
+                                <Link
+                                    to={'/gio-hang'}
+                                    className={cx('wrapper-header_cart-icon')}
+                                    onClick={() => HandleActive(-1)}
+                                >
+                                    <img src={cartIcon} alt="cartIcon" />
+                                    <span>{cartProduct.length}</span>
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className={cx('wrapper-setarator')}></div>
+
+                <div className={cx('wrapper-navbar_mobiler')} ref={mobileMenuRef} onClick={HandleHideModel}>
+                    <MobileHeader menus={menus} HandleHideModel={HandleHideModel} />
+                </div>
                 <div className={cx('wrapper-navbar')}>
                     <div className={cx('wrapper-navbar_nav')}>
                         <select className={cx('wrapper-navbar_nav-departments')}>

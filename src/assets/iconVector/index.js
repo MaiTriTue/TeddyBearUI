@@ -14,6 +14,12 @@ import teddyBear from '~/assets/iconVector/teddyBear.svg';
 import heartRegule from '~/assets/iconVector/heartRegule.svg';
 import heartSolid from '~/assets/iconVector/heartSolid.svg';
 
+import check from '~/assets/iconVector/check-svg.svg';
+import delivery from '~/assets/iconVector/delivery-svgrepo-com.svg';
+import money from '~/assets/iconVector/money-svgrepo-com.svg';
+import shop from '~/assets/iconVector/shop-svgrepo-com.svg';
+import telephone from '~/assets/iconVector/telephone-call-svgrepo-com.svg';
+
 // const imgVector = {
 //     chevronDown: require('~/assets/iconVector/Vector.svg'),
 //     searchIcon: require('~/assets/iconVector/search-icon.svg'),
@@ -22,6 +28,11 @@ import heartSolid from '~/assets/iconVector/heartSolid.svg';
 // export default imgVector;
 
 export {
+    check,
+    delivery,
+    money,
+    shop,
+    telephone,
     Vector,
     searchIcon,
     cartIcon,

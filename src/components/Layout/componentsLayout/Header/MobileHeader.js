@@ -1,8 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import images from '~/assets/images';
-import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleXmark, faSpinner, faMagnifyingGlass, faAngleDown, faBars } from '@fortawesome/free-solid-svg-icons';
 
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
@@ -13,53 +10,62 @@ const cx = classNames.bind(styles);
 
 function MobileHeader(props) {
     const [state, dispatch] = useStore();
-    const { menu } = state;
-    const { userLogin, active, HandleActive, HandleChangeIndex, handleClickMobileNavbarItem } = props;
-    let activeMenu;
+    const { userLogin } = state;
+    const { menus, HandleHideModel } = props;
+
+    const HandleMenuMobile = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+    };
 
     return (
-        <div className={cx('mobile-menu_wrap')}>
-            <ul className={cx('navbar-inner-list')}>
-                {menu &&
-                    menu.map((item, index) => {
-                        // activeMenu = index === active ? 'active' : '';
+        <div className={cx('mobile-navbar')} onClick={(event) => HandleMenuMobile(event)}>
+            <ul className={cx('mobile-navbar_inner-list')}>
+                <li className={cx('inner-list_user')}>
+                    <div className={cx('inner-list_user-image')}>
+                        {userLogin && userLogin['avatar'] ? (
+                            <img src={userLogin['avatar']} alt="user-icon" className={cx('header_login-image')} />
+                        ) : (
+                            <img src={images.iconDefaultUse} alt="user-icon" className={cx('header_login-image')} />
+                        )}
+                    </div>
+                    <div className={cx('inner-list_user-info')}>
+                        {userLogin ? (
+                            <span className={cx('user-info_name-1')}>{userLogin['name']}</span>
+                        ) : (
+                            <span className={cx('user-info_name-0')}>Khách hàng ẩn danh</span>
+                        )}
+
+                        <span className={cx('user-info_rank')}>Khách hàng</span>
+                    </div>
+                </li>
+
+                {menus &&
+                    menus.map((item, index) => {
                         return (
-                            <li key={index}>
-                                <Link
-                                    to={'/' + item.url}
-                                    className={cx('navbar-item')}
-                                    onClick={() => handleClickMobileNavbarItem()}
-                                >
-                                    {item.content}
-                                </Link>
+                            <li className={cx('menu-item')} onClick={() => HandleHideModel()} key={index}>
+                                <Link to={item.url}>{item.content}</Link>
                             </li>
                         );
                     })}
 
-                <li className={cx('search')}>
-                    <Link to={'/tim-kiem'} className={cx('navbar-item')} onClick={() => handleClickMobileNavbarItem()}>
-                        <FontAwesomeIcon className={cx('search-item')} icon={faMagnifyingGlass} />
-                    </Link>
-                </li>
-                <li>
-                    <Link to={'/'} className={cx('navbar-item')} onClick={() => handleClickMobileNavbarItem()}>
-                        MUA GÓI
-                    </Link>
-                </li>
-                <li>
-                    {userLogin ? (
-                        <Link to={'/'} className={cx('navbar-item')} onClick={() => handleClickMobileNavbarItem()}>
-                            <img src={images.iconDefaultUse} alt="img-user" className={cx('img-user')} />
+                <li className={cx('navbar-item_status')}>
+                    <div className={cx('navbar-item_login-logout')}>
+                        {userLogin ? (
+                            <Link to={'/'} className={cx('navbar-item_logout')} onClick={HandleHideModel}>
+                                Đăng xuất
+                            </Link>
+                        ) : (
+                            <Link to="/dang-nhap" className={cx('navbar-item_login')} onClick={HandleHideModel}>
+                                Đăng nhập
+                            </Link>
+                        )}
+                    </div>
+                    <div className={cx('navbar-item-register')}>
+                        <Link to="/dang-ky" className={cx('navbar-item_register-btn')} onClick={HandleHideModel}>
+                            Đăng ký
                         </Link>
-                    ) : (
-                        <Link
-                            to="/dang-nhap"
-                            className={cx('navbar-item')}
-                            onClick={() => handleClickMobileNavbarItem()}
-                        >
-                            Đăng nhập
-                        </Link>
-                    )}
+                    </div>
                 </li>
             </ul>
         </div>

@@ -13,27 +13,31 @@ function Home() {
     const [teddyBearHotData, setTeddyBearHotData] = useState('');
     const [bouquetHotData, setBouquetHotData] = useState('');
     const [giftBoxHotData, setGiftBoxHotData] = useState('');
+    const [nailHotData, setNailHotData] = useState('');
     const count = useState(1);
-    console.log('test ----------------');
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
     useEffect(() => {
         Apis.get(endpoints['newProduct']).then((res) => {
-            console.log(res.data.results);
+            // console.log(res.data.results);
             setNewProduct(res.data.results);
         });
         Apis.get(endpoints['teddyBearHot']).then((res) => {
-            console.log(res.data.results);
+            // console.log(res.data.results);
             setTeddyBearHotData(res.data.results);
         });
         Apis.get(endpoints['bouquetHot']).then((res) => {
-            console.log(res.data.results);
+            // console.log(res.data.results);
             setBouquetHotData(res.data.results);
         });
         Apis.get(endpoints['giftBox']).then((res) => {
-            console.log(res.data.results);
+            // console.log(res.data.results);
             setGiftBoxHotData(res.data.results);
+        });
+        Apis.get(endpoints['nailHot']).then((res) => {
+            // console.log(res.data.results);
+            setNailHotData(res.data.results);
         });
     }, []);
 
@@ -70,6 +74,14 @@ function Home() {
                     )}
                 </div>
             </div>
+
+            <div className={cx('wrapper-billboard')}>
+                <div className={cx('wrapper-billboard')}>
+                    {bouquetHotData && (
+                        <TrendingProduct type="BestSellingProduct" title="Hoa Hot Nhất" data={bouquetHotData} />
+                    )}
+                </div>
+            </div>
             <div className={cx('wrapper-billboard')}>
                 <div className={cx('wrapper-billboard')}>
                     {giftBoxHotData && (
@@ -77,10 +89,11 @@ function Home() {
                     )}
                 </div>
             </div>
+
             <div className={cx('wrapper-billboard')}>
                 <div className={cx('wrapper-billboard')}>
                     {bouquetHotData && (
-                        <TrendingProduct type="BestSellingProduct" title="Hoa Hot Nhất" data={bouquetHotData} />
+                        <TrendingProduct type="BestSellingProduct" title="Nail Hot Nhất" data={nailHotData} />
                     )}
                 </div>
             </div>

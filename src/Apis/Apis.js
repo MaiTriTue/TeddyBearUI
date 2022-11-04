@@ -3,13 +3,16 @@ import axios from 'axios';
 export let endpoints = {
     login: '/user/login/',
     register: '/user/register/',
+    current_user: '/user/register/current_user/',
     get_token: '/o/token/',
 
     pageCount: '/?page=',
+    products: '/products/',
     newProduct: '/new-products/',
     bouquetHot: '/bouquet-hot/',
     teddyBearHot: '/teddy-bear-hot/',
     giftBox: '/gift-box-hot/',
+    nailHot: '/nail-hot/',
     gauBong: '/gau-bong/',
     thuBong: '/thu-bong/',
     goiBong: '/goi-bong/',
@@ -17,6 +20,7 @@ export let endpoints = {
     bupBe: '/bup-be/',
     phuKien: '/phu-kien/',
     hoa: '/hoa/',
+    nail: '/nail/',
     hopQua: '/hop-qua/',
 };
 

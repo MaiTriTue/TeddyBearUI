@@ -24,6 +24,10 @@ function CartPage() {
         : '';
 
     useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    useEffect(() => {
         let products = [];
         if (dataLocalStorage) {
             console.log(dataLocalStorage);

@@ -1,5 +1,5 @@
 export { default as Home } from '~/pages/Home';
-export { default as Channel } from '~/pages/Channel';
+export { default as ProDetailPage } from '~/pages/ProDetailPage';
 export { default as Hbogo } from '~/pages/Hbogo';
 export { default as Category } from '~/pages/Category';
 export { default as Sport } from '~/pages/Sport';

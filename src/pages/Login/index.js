@@ -48,7 +48,7 @@ function Login() {
                 password: password,
             })
                 .then((res) => {
-                    cookies.save('origin-movie-access_token', res.data.access_token);
+                    cookies.save('gbx-actk', res.data.access_token);
                 })
                 .catch(function (error) {
                     dispatch(actions.setWarningLogin(true));
@@ -57,11 +57,12 @@ function Login() {
 
             await Apis.get(endpoints['current_user'], {
                 headers: {
-                    Authorization: `Bearer ${cookies.load('origin-movie-access_token')}`,
+                    Authorization: `Bearer ${cookies.load('gbx-actk')}`,
                 },
             })
                 .then((res) => {
-                    cookies.save('origin-movie-user', res.data);
+                    console.log(res.data);
+                    cookies.save('gbx-u', res.data);
                     dispatch(actions.setUserLogin(res.data));
                     navigate('/');
                 })

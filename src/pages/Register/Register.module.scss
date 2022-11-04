@@ -15,6 +15,7 @@
     }
     @include s.mobile {
         margin-top: var(--default-layout-header-height-mobile);
+        min-height: unset;
     }
 }
 
@@ -23,7 +24,8 @@
     padding: 48px 0;
 
     @include s.mobile {
-        padding: 48px 24px;
+        width: var(--default-layout-header-height-mobile);
+        padding: 30vw 24px;
     }
 }
 

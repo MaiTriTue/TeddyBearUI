@@ -16,5 +16,6 @@ export const WARNING_LOGIN = 'warning_login';
 export const CHANGE_WIDTH = 'change_width';
 export const SET_CHOOSE_MOVIE_ID = 'set_choose_movie_id';
 export const SET_MOVIE_DETAIL = 'set_movie_detail';
+export const SET_PRODUCT_DETAIL = 'set_product_detail';
 export const SET_MENU = 'set_menu';
 export const SET_CART_PRODUCT = 'set_cart_product';

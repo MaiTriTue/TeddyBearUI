@@ -18,6 +18,7 @@
     }
 
     @include s.mobile {
+        width: var(--default-layout-width-mobile);
     }
 }
 

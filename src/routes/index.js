@@ -12,6 +12,7 @@ import {
     serviceRegistration,
     CartPage,
     Warning404,
+    ProDetailPage,
 } from '~/pages';
 
 //  Public router
@@ -20,9 +21,9 @@ const PublicRoutes = [
     { path: '/gio-hang', component: CartPage, Layout: null },
     { path: '/dang-nhap', component: Login, Layout: null },
     { path: '/dang-ky', component: Register, Layout: null },
+    { path: '/gau-bong/:slugPro/:idPro', component: ProDetailPage, Layout: null },
 
     { path: '/tim-kiem', component: PageElement, Layout: null },
-    { path: '/truyen-hinh', component: Channel, Layout: null },
     { path: '/danh-sach', component: Category, Layout: null },
     { path: '/the-thao', component: Sport, Layout: null },
     { path: '/quen-mat-khau', component: ForgotPassword, Layout: null },

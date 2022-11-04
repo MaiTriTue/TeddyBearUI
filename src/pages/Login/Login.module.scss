@@ -8,7 +8,6 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    min-height: 100vh;
 
     @include s.laptop {
     }
@@ -16,6 +15,9 @@
     }
     @include s.mobile {
         margin-top: var(--default-layout-header-height-mobile);
+        padding: unset;
+        margin-bottom: unset;
+        min-height: unset;
     }
 }
 
@@ -39,6 +41,8 @@
     @include s.tablet {
     }
     @include s.mobile {
+        width: var(--default-layout-width-mobile);
+        padding: 30vw 24px;
     }
 }
 

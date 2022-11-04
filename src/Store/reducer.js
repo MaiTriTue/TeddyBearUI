@@ -20,10 +20,11 @@ import {
     SET_CHECK_lASTNAME_VALID,
     SET_CHECK_FIRSTNAME_VALID,
     SET_CHECK_EMAIL_VALID,
+    SET_PRODUCT_DETAIL,
 } from './Constants';
 
 const initState = {
-    userLogin: cookies.load('origin-movie-user'),
+    userLogin: cookies.load('gbx-u'),
     warningLogin: false,
     userName: '',
     lastName: '',
@@ -40,8 +41,9 @@ const initState = {
     changeWidth: 0,
     chooseMovieId: '',
     movieDetail: '',
+    productDetail: '',
     menu: '',
-    cartProduct: [],
+    cartProduct: [...JSON.parse(localStorage.getItem('cartProduct'))],
 };
 
 function reducer(state, action) {
@@ -116,6 +118,11 @@ function reducer(state, action) {
             return {
                 ...state,
                 movieDetail: action.payload,
+            };
+        case SET_PRODUCT_DETAIL:
+            return {
+                ...state,
+                productDetail: action.payload,
             };
         case SET_MENU:
             return {

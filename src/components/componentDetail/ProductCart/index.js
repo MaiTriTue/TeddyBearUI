@@ -35,7 +35,8 @@ function ProductCart(props) {
     const handleAddCount = () => {
         setCountProduct(countProduct + 1);
     };
-    const handleAddCart = (data) => {
+    const handleAddCart = (event, data) => {
+        event.preventDefault();
         dispatch(
             actions.setCartProduct([
                 ...cartProduct,
@@ -48,7 +49,9 @@ function ProductCart(props) {
 
         alert('Đã thêm sản phẩm vào giỏ hàng thành công !');
     };
-    const handleLoveProduct = () => {
+    const handleLoveProduct = (event) => {
+        event.preventDefault();
+        console.log('click');
         setLoveProduct(loveProduct === false ? true : false);
     };
 
@@ -56,8 +59,10 @@ function ProductCart(props) {
         <div className={cx('wrapper')}>
             <div className={cx('wrapper-product')}>
                 <div className={cx('product_img')}>
-                    <img src={data.image} alt="gau bong" className={cx('product_img-detail')} />
-                    <div className={cx('product_heart')} onClick={handleLoveProduct}>
+                    <Link to={`/gau-bong/${data.slug}/${data.id}`}>
+                        <img src={data.image} alt="gau bong" className={cx('product_img-detail')} />
+                    </Link>
+                    <div className={cx('product_heart')} onClick={(event) => handleLoveProduct(event)}>
                         {loveProduct === true ? (
                             <img src={heartSolid} alt="12345" className={cx('product_heart-icon')} />
                         ) : (
@@ -66,7 +71,9 @@ function ProductCart(props) {
                     </div>
                 </div>
                 <div className={cx('product_info')}>
-                    <h3 className={cx('product_info-name')}>{data.name}</h3>
+                    <Link to={`/gau-bong/${data.slug}/${data.id}`}>
+                        <h3 className={cx('product_info-name')}>{data.name}</h3>
+                    </Link>
                     <span className={cx('product_info-rating')}>
                         <FontAwesomeIcon icon={faStar} className={cx('product_info-rating-star')} />
                         <FontAwesomeIcon icon={faStar} className={cx('product_info-rating-star')} />
@@ -87,7 +94,7 @@ function ProductCart(props) {
                             +
                         </span>
                     </div>
-                    <button className={cx('btn_add-cart')} onClick={() => handleAddCart(data)}>
+                    <button className={cx('btn_add-cart')} onClick={(event) => handleAddCart(event, data)}>
                         Thêm giỏ hàng
                     </button>
                 </div>

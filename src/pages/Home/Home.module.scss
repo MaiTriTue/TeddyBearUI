@@ -11,6 +11,7 @@
     }
 
     @include s.mobile {
+        margin-top: 7vh;
     }
 }
 
@@ -20,6 +21,16 @@
     justify-content: space-between;
     align-items: center;
     margin-top: 30px;
+
+    @include s.laptop {
+    }
+
+    @include s.tablet {
+    }
+
+    @include s.mobile {
+        display: block;
+    }
 }
 
 .wrapper-billboard_slide {
@@ -49,5 +60,22 @@
         height: calc((var(--default-layout-width) * 0.39) * 0.46);
         border-radius: 10px;
         background-color: var(--backgroundColor6);
+    }
+}
+
+@include s.laptop {
+}
+
+@include s.tablet {
+}
+
+@include s.mobile {
+    .wrapper-billboard_slide {
+        width: 100%;
+        height: calc((var(--default-layout-width) * 1) * 0.64);
+    }
+
+    .wrapper-billboard_banner {
+        display: none;
     }
 }

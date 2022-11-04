@@ -44,7 +44,7 @@ function SlideCategory(props) {
                             datas.map((item, index) => {
                                 if (type === 'category') {
                                     return (
-                                        <Link to={item.link} key={index}>
+                                        <Link to={item.link} key={index} className={cx('category-carts')}>
                                             <CategoryNav data={item} />
                                         </Link>
                                     );

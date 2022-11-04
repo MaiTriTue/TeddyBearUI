@@ -22,20 +22,7 @@ function ImageBanner() {
 
     return (
         <div className={cx('wrapper')} onClick={() => handleProduct()}>
-            <p className={cx('wrapper-info_slogan')}>
-                20% Off
-                <span className={cx('wrapper-info_slogan-sale')}>
-                    <span className={cx('slogan-sale_retangle')}></span>
-                    SALE
-                </span>
-            </p>
-            <p className={cx('wrapper-info_name')}>Booque & Món quà tình yêu</p>
-            <button className={cx('wrapper-info_btn')}>
-                Xem chi Tiết
-                <img src={right} alt="down" />
-            </button>
-
-            {/* <div className={cx('wrapper-info')}>
+            <div className={cx('wrapper-info')}>
                 <p className={cx('wrapper-info_slogan')}>
                     20% Off
                     <span className={cx('wrapper-info_slogan-sale')}>
@@ -48,12 +35,11 @@ function ImageBanner() {
                     Xem chi Tiết
                     <img src={right} alt="down" />
                 </button>
-            </div> */}
+            </div>
+
             <div className={cx('wrapper-img')}>
                 <img src={images.billBeard02} alt="billBealt01" />
             </div>
-
-            {/* <div className={cx('wrapper-info')}></div> */}
         </div>
     );
 }
